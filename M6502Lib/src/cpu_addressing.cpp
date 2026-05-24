@@ -12,6 +12,13 @@ Byte CPU::ReadZeroPageXOperand() {
   return ReadByte(zeroPageAddress);
 }
 
+Byte CPU::ReadZeroPageYOperand() {
+  Byte zeroPageAddress = FetchByte();
+  zeroPageAddress += Y;
+  Cycles--;
+  return ReadByte(zeroPageAddress);
+}
+
 Byte CPU::ReadAbsoluteOperand() {
   Word absoluteAddress = FetchWord();
   return ReadByte(absoluteAddress);

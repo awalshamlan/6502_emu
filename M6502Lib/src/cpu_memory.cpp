@@ -33,3 +33,22 @@ Word CPU::ReadWordFromZeroPage(Word address) {
   Byte highByte = ReadByte(highByteAddress);
   return lowByte | (highByte << 8);
 }
+
+void CPU::WriteByte(Word address, Byte value) {
+  (*Memory)[address] = value;
+  Cycles--;
+}
+
+void CPU::WriteWord(Word address, Word value) {
+  Word lowByteAddress = address;
+  Word highByteAddress = address + 1;
+  WriteByte(lowByteAddress, value);
+  WriteByte(highByteAddress, value >> 8);
+}
+
+void CPU::WriteWordToZeroPage(Byte address, Word value) {
+  Byte lowByteAddress = address;
+  Byte highByteAddress = address + 1;
+  WriteByte(lowByteAddress, value);
+  WriteByte(highByteAddress, value >> 8);
+}

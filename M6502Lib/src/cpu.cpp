@@ -45,3 +45,8 @@ void CPU::SetFlag(Byte flag, bool enabled) {
 }
 
 bool CPU::GetFlag(Byte flag) { return (Status & flag) != 0; }
+
+void CPU::SetZN(Byte result) {
+  SetFlag(ZERO_FLAG, result == 0);
+  SetFlag(NEGATIVE_FLAG, (result & NEGATIVE_FLAG) > 0);
+}

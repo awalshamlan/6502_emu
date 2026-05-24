@@ -41,6 +41,7 @@ private:
   // Addressing helpers
   Byte ReadZeroPageOperand();
   Byte ReadZeroPageXOperand();
+  Byte ReadZeroPageYOperand();
   Byte ReadAbsoluteOperand();
   Byte ReadAbsoluteXOperand(bool pageCrossPenalty = true);
   Byte ReadAbsoluteYOperand(bool pageCrossPenalty = true);
@@ -57,15 +58,23 @@ private:
   // Instruction Helpers
   void ADC(Byte operand);
   void AND(Byte operand);
-  void LDA(Byte operand);
+  void BIT(Byte operand);
   void CMP(Byte reg, Byte operand);
+  void EOR(Byte operand);
+  void DEC(Word address);
+  void INC(Word address);
+  void JMP(Word address);
+  void LDA(Byte operand);
+  void LDX(Byte operand);
+  void LDY(Byte operand);
+  void LSR(Word address);
+  void ORA(Byte operand);
 
   void Branch(bool branchFlag);
 
-  // OP Status Setters
+  // Instruction Status Helpers
+  void SetZN(Byte result);
   void ADCSetFlags(Byte oldA, Byte operand, Word result);
-  void ANDSetFlags();
-  void LDASetFlags();
 
   // Stack Helpers
   void PushByte(Byte value);
@@ -83,6 +92,7 @@ private:
   // Write
   void WriteByte(Word address, Byte value);
   void WriteWord(Word address, Word value);
+  void WriteWordToZeroPage(Byte address, Word value);
 
   // Status Flag Helpers
   void SetFlag(Byte flag, bool value);

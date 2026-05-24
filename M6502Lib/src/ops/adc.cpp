@@ -9,8 +9,7 @@ void CPU::ADC(Byte value) {
 
 void CPU::ADCSetFlags(Byte oldA, Byte operand, Word result) {
   SetFlag(CARRY_FLAG, result > 0xFF);
-  SetFlag(ZERO_FLAG, A == 0);
-  SetFlag(NEGATIVE_FLAG, (A & NEGATIVE_FLAG) != 0);
+  SetZN(A);
   SetFlag(OVERFLOW_FLAG, (~(oldA ^ operand) & (oldA ^ A) & NEGATIVE_FLAG) != 0);
 }
 
