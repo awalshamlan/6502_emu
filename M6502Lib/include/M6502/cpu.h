@@ -5,7 +5,8 @@
 
 #include <array>
 
-struct CPU {
+struct CPU
+{
   using Handler = void (CPU::*)();
 
   CPU();
@@ -48,6 +49,13 @@ private:
   Byte ReadIndexedIndirectOperand();
   Byte ReadIndirectIndexedOperand(bool pageCrossPenalty = true);
 
+  Byte ResolveZeroPageXAddress();
+  Byte ResolveZeroPageYAddress();
+  Word ResolveAbsoluteXAddress();
+  Word ResolveAbsoluteYAddress();
+  Word ResolveIndexedIndirectAddress();
+  Word ResolveIndirectIndexedAddress();
+
   // Instruction Handlers
   std::array<Handler, 256> InstructionTable{};
   void OpUnhandled();
@@ -56,19 +64,33 @@ private:
 #undef OPCODE
 
   // Instruction Helpers
-  void ADC(Byte operand);
-  void AND(Byte operand);
-  void BIT(Byte operand);
-  void CMP(Byte reg, Byte operand);
-  void EOR(Byte operand);
-  void DEC(Word address);
-  void INC(Word address);
-  void JMP(Word address);
+  // Load / Store
   void LDA(Byte operand);
   void LDX(Byte operand);
   void LDY(Byte operand);
-  void LSR(Word address);
+  void STA(Word address);
+  void STX(Word address);
+  void STY(Word address);
+  // Arithmetic
+  void ADC(Byte operand);
+  void SBC(Byte operand);
+  void CMP(Byte reg, Byte operand);
+  // Logical
+  void AND(Byte operand);
+  void BIT(Byte operand);
+  void EOR(Byte operand);
   void ORA(Byte operand);
+  // Increment / Decrement
+  void INC(Word address);
+  void DEC(Word address);
+  // Shifts
+  void LSR(Word address);
+  void ASL(Word address);
+  void ROL(Word address);
+  void ROR(Word address);
+
+  void JMP(Word address);
+
 
   void Branch(bool branchFlag);
 
@@ -79,6 +101,8 @@ private:
   // Stack Helpers
   void PushByte(Byte value);
   void PushWord(Word value);
+  Byte PullByte();
+  Word PullWord();
 
   // Memory Helpers
   // Fetch

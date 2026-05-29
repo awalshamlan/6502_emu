@@ -10,3 +10,10 @@ void CPU::PushWord(Word value) {
   PushByte(((value >> 8) & 0xFF));
   PushByte((value & 0xFF));
 }
+
+Byte CPU::PullByte(){
+  StackPointer++;
+  Byte value = (*Memory)[STACK_BASE + StackPointer];
+  Cycles--;
+  return value;
+}

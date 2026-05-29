@@ -9,7 +9,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 add_executable(M6502Tests
-    cpu_test.cpp
+    opcode_inventory_test.cpp
+    cpu_behavior_test.cpp
 )
 
 target_link_libraries(M6502Tests

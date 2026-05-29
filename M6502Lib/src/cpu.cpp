@@ -11,13 +11,14 @@ CPU::CPU() {
 void CPU::Connect(MEM &memory) { Memory = &memory; }
 
 u32 CPU::Exec(u32 cycles) {
+  Cycles = cycles;
   const u32 cyclesRequested = cycles;
-  while (cycles > 0) {
+  while (Cycles > 0) {
     Byte opcode = FetchByte();
     Handler handler = InstructionTable[opcode];
     (this->*handler)();
   }
-  return cyclesRequested - cycles;
+  return cyclesRequested - Cycles;
 }
 
 void CPU::Reset() {

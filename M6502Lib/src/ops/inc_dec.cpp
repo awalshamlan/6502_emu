@@ -16,50 +16,19 @@ void CPU::INC(Word address) {
   SetZN(value);
 }
 
-void CPU::DEC_ZP() { DEC(FetchByte()); }
-
-void CPU::DEC_ZPX() {
-  Byte address = FetchByte() + X;
-  Cycles--;
-  DEC(address);
-}
-
-void CPU::DEC_ABS() { DEC(FetchWord()); }
-
-void CPU::DEC_ABSX() {
-  Word address = FetchWord() + X;
-  Cycles--;
-  DEC(address);
-}
-
-void CPU::DEX() {
-  X--;
-  Cycles--;
-  SetZN(X);
-}
-
-void CPU::DEY() {
-  Y--;
-  Cycles--;
-  SetZN(Y);
-}
-
+// INC Start
 void CPU::INC_ZP() { INC(FetchByte()); }
-
 void CPU::INC_ZPX() {
   Byte address = FetchByte() + X;
   Cycles--;
   INC(address);
 }
-
 void CPU::INC_ABS() { INC(FetchWord()); }
-
 void CPU::INC_ABSX() {
   Word address = FetchWord() + X;
   Cycles--;
   INC(address);
 }
-
 void CPU::INX() {
   X++;
   Cycles--;
@@ -68,6 +37,30 @@ void CPU::INX() {
 
 void CPU::INY() {
   Y++;
+  Cycles--;
+  SetZN(Y);
+}
+
+// DEC Start
+void CPU::DEC_ZP() { DEC(FetchByte()); }
+void CPU::DEC_ZPX() {
+  Byte address = FetchByte() + X;
+  Cycles--;
+  DEC(address);
+}
+void CPU::DEC_ABS() { DEC(FetchWord()); }
+void CPU::DEC_ABSX() {
+  Word address = FetchWord() + X;
+  Cycles--;
+  DEC(address);
+}
+void CPU::DEX() {
+  X--;
+  Cycles--;
+  SetZN(X);
+}
+void CPU::DEY() {
+  Y--;
   Cycles--;
   SetZN(Y);
 }
